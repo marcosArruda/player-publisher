@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
+        applicationComplete="init()">
+    <fx:Script><![CDATA[
+        import org.osmf.elements.VideoElement;
+        import org.osmf.net.StreamingURLResource;
+        import org.osmf.utils.OSMFSettings;
+
+        public var nc:NetConnection;
+        public var ns:NetStream;
+        public var nsPlayer:NetStream;
+        public var vid:Video;
+        public var vidPlayer:Video;
+        public var cam:Camera;
+        public var mic:Microphone;
+
+
+        //var resourceFullURL:String = "rtmp://54.94.202.33:1935/vod/mp4:sample.mp4";
+        //var resource:StreamingURLResource = new StreamingURLResource(resourceFullURL);
+        //var videoElement:VideoElement = new VideoElement(resource);
+        //videoComponent.source = videoElement;
+        public function init():void {
+            OSMFSettings.enableStageVideo = false;
+            //nc = new NetConnection();
+            //nc.addEventListener(NetStatusEvent.NET_STATUS, onNetStatus);
+            //nc.connect("rtmp://localhost/publishlive");
+            //nc.connect("rtmp://54.94.202.33:1935","marcos","200510wowza");
+
+
+            /* Work around (I am using 11.0.9600.16476):
+             1. set OSMFSettings.enableStageVideo = false in application creationComplete()
+             2. Add skin for VideoPlayer (copied from default) with added attribute on SolidColor: alpha="1" in background rect with comment "background when the videoDisplay doesn't fill its whole spot"
+
+             This now works with player full screen as well (did not work berfore
+             */
+        }
+
+        public function initWithStreamingURL():void {
+            //var resourceFullURL:String = "rtmp://54.94.202.33:1935/vod/mp4:sample.mp4";
+            //var resource:StreamingURLResource = new StreamingURLResource(resourceFullURL);
+
+            // Reference: https://forums.adobe.com/thread/879536
+            //resource.connectionArguments
+           // var videoElement:VideoElement = new VideoElement(resource);
+            //videoComponent.source = videoElement;
+        }
+
+        public function onNetStatus(event:NetStatusEvent):void {
+            //trace(event.info.code);
+            //if(event.info.code == "NetConnection.Connect.Success"){
+            //publishCamera();
+            //displayPublishingVideo();
+            //displayPlaybackVideo();
+            //}
+        }
+
+        public function publishCamera():void {
+            //cam = Camera.getCamera();
+            //mic = Microphone.getMicrophone();
+            //ns = new NetStream(nc);
+            //ns.attachCamera(cam);
+            //ns.attachAudio(mic);
+            //ns.publish("myCamera", "live");
+        }
+
+        public function displayPublishingVideo():void {
+            //vid = new Video();
+            //vid.x = 10;
+            //vid.y = 10;
+            //vid.attachCamera(cam);
+            //addChild(vid);
+        }
+
+        public function displayPlaybackVideo():void {
+            //nsPlayer = new NetStream(nc);
+            //nsPlayer.play("myCamera");
+            //vidPlayer = new Video();
+            //vidPlayer.x = cam.width + 20;
+            //vidPlayer.y = 10;
+            //vidPlayer.attachNetStream(nsPlayer);
+            //addChild(vidPlayer);
+        }
+        ]]></fx:Script>
+    <s:VideoDisplay id="videoComponent" width="800" height="600" opaqueBackground="true">
+        <s:DynamicStreamingVideoSource host="rtmp://54.94.202.33:1935/live" streamType="live">
+            <s:DynamicStreamingVideoItem streamName="myStream" bitrate="1000"/>
+        </s:DynamicStreamingVideoSource>
+    </s:VideoDisplay>
+</s:Application>
